@@ -1,0 +1,90 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0": {
+      "Tp.Restaurante.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Tp.Restaurante.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tp.Restaurante.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Tp.Restaurante.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Tp.Restaurante.Domain/Tp.Restaurante.Domain.csproj",
+      "msbuildProject": "../Tp.Restaurante.Domain/Tp.Restaurante.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net5.0": [
+      "Tp.Restaurante.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Nico\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "G:\\Visual Studio\\Tp2-Rest\\Tp.Restaurante.API\\Tp.Restaurante.Application\\Tp.Restaurante.Application.csproj",
+      "projectName": "Tp.Restaurante.Application",
+      "projectPath": "G:\\Visual Studio\\Tp2-Rest\\Tp.Restaurante.API\\Tp.Restaurante.Application\\Tp.Restaurante.Application.csproj",
+      "packagesPath": "C:\\Users\\Nico\\.nuget\\packages\\",
+      "outputPath": "G:\\Visual Studio\\Tp2-Rest\\Tp.Restaurante.API\\Tp.Restaurante.Application\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Nico\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "projectReferences": {
+            "G:\\Visual Studio\\Tp2-Rest\\Tp.Restaurante.API\\Tp.Restaurante.Domain\\Tp.Restaurante.Domain.csproj": {
+              "projectPath": "G:\\Visual Studio\\Tp2-Rest\\Tp.Restaurante.API\\Tp.Restaurante.Domain\\Tp.Restaurante.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net5.0": {
+        "targetAlias": "net5.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
