@@ -22,6 +22,25 @@ namespace Tp.Restaurante.AccessData.Queries
             this.sqlKataCompiler = sqlKataCompiler;
         }
 
+        public List<ResponseGetAllMercaderiaDto> GetAllMercaderia(string tipo)
+        {
+            var db = new QueryFactory(connection, sqlKataCompiler);
+            var query = db.Query("Mercaderias")
+                .Select("Mercaderias.Nombre",
+            //    "TipoMercaderia.TipoMercaderiaId",
+                "TipoMercaderia.Descripcion AS Tipo",
+                "Mercaderias.Precio",
+                "Mercaderias.Ingredientes",
+                "Mercaderias.Preparacion",
+                "Mercaderias.Imagen",
+                "Mercaderias.MercaderiaId")
+                .Join("TipoMercaderia", "TipoMercaderia.TipoMercaderiaId", "Mercaderias.TipoMercaderiaId")
+                .When(!string.IsNullOrWhiteSpace(tipo), q => q.WhereLike("TipoMercaderia.TipoMercaderiaId", $"%{tipo}%"));
+
+            var result = query.Get<ResponseGetAllMercaderiaDto>();
+            return result.ToList();
+        }
+
         public ResponseGetMercaderiaById GetById(string mercaderiaId)
         {
             var db = new QueryFactory(connection, sqlKataCompiler);
@@ -35,17 +54,6 @@ namespace Tp.Restaurante.AccessData.Queries
                 .Select("TipoMercaderiaId", "Descripcion")
                 .Where("TipoMercaderiaId", "=", mercaderia.TipoMercaderiaId)
                 .FirstOrDefault<ResponseGetMercaderiaByIdTipo>();
-
-            /*
-            var mercaderia = db.Query("Mercaderias")
-                .Join("TipoMercaderia", "TipoMercaderia.TipoMercaderiaId", "Mercaderias.TipoMercaderiaId")
-                .Where("MercaderiaId", "=", mercaderiaId)
-                .Select(
-                "Mercaderias.{Nombre, Precio, Ingredientes, Preparacion, Imagen}",
-                "TipoMercaderia.{Descripcion}")
-                .FirstOrDefault<ResponseGetMercaderiaById>();
-            
-                    */
 
             return new ResponseGetMercaderiaById
             {
