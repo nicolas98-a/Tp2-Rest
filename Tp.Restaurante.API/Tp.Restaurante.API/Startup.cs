@@ -56,6 +56,7 @@ namespace Tp.Restaurante.API
 
             services.AddTransient<IGenericsRepository, GenericsRepository>();
             services.AddTransient<IMercaderiaService, MercaderiaService>();
+            services.AddTransient<IComandaService, ComandaService>();
             services.AddTransient<IMercaderiaQuery, MercaderiaQuery>();
 
             services.AddTransient<IValidator<Mercaderia>, MercaderiaValidator>();

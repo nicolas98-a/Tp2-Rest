@@ -25,17 +25,18 @@ namespace Tp.Restaurante.AccessData.Queries
         public ResponseGetMercaderiaById GetById(string mercaderiaId)
         {
             var db = new QueryFactory(connection, sqlKataCompiler);
-            /*
+            
             var mercaderia = db.Query("Mercaderias")
-                .Select("Nombre", "Precio", "Ingredientes", "Preparacion", "Imagen", "TipoMercaderiaId")
+                .Select("Nombre", "TipoMercaderiaId", "Precio", "Ingredientes", "Preparacion", "Imagen")
                 .Where("MercaderiaId", "=", mercaderiaId)
                 .FirstOrDefault<MercaderiaDto>();
 
-            string tipo = db.Query("TipoMercaderia")
-                .Select("Descripcion")
-                .Where("TipoMercaderiaId", "=", mercaderia.Tipo)
-                .ToString();
-                */
+            var tipo = db.Query("TipoMercaderia")
+                .Select("TipoMercaderiaId", "Descripcion")
+                .Where("TipoMercaderiaId", "=", mercaderia.TipoMercaderiaId)
+                .FirstOrDefault<ResponseGetMercaderiaByIdTipo>();
+
+            /*
             var mercaderia = db.Query("Mercaderias")
                 .Join("TipoMercaderia", "TipoMercaderia.TipoMercaderiaId", "Mercaderias.TipoMercaderiaId")
                 .Where("MercaderiaId", "=", mercaderiaId)
@@ -44,16 +45,17 @@ namespace Tp.Restaurante.AccessData.Queries
                 "TipoMercaderia.{Descripcion}")
                 .FirstOrDefault<ResponseGetMercaderiaById>();
             
-                                  
+                    */
 
             return new ResponseGetMercaderiaById
             {
                 Nombre = mercaderia.Nombre,
-                Tipo = mercaderia.Tipo,
+                Tipo = tipo.Descripcion,
                 Precio = mercaderia.Precio,
                 Ingredientes = mercaderia.Ingredientes,
                 Preparacion = mercaderia.Preparacion,
-                Imagen = mercaderia.Imagen
+                Imagen = mercaderia.Imagen,
+                MercaderiaId = int.Parse(mercaderiaId)
             };
 
         }

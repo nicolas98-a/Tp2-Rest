@@ -12,7 +12,7 @@ namespace Tp.Restaurante.Application.Services
 {   
     public interface IMercaderiaService
     {
-        Mercaderia CreateMercaderia(MercaderiaDto mercaderia);
+        GenericCreatedResponseDto CreateMercaderia(MercaderiaDto mercaderia);
         ResponseGetMercaderiaById GetById(string mercaderiaId);
     }
     public class MercaderiaService : IMercaderiaService
@@ -25,12 +25,12 @@ namespace Tp.Restaurante.Application.Services
             _query = query;
         }
 
-        public Mercaderia CreateMercaderia(MercaderiaDto mercaderia)
+        public GenericCreatedResponseDto CreateMercaderia(MercaderiaDto mercaderia)
         {
             var entity = new Mercaderia
             {
                 Nombre = mercaderia.Nombre,
-                TipoMercaderiaId = mercaderia.Tipo,
+                TipoMercaderiaId = mercaderia.TipoMercaderiaId,
                 Precio = mercaderia.Precio,
                 Ingredientes = mercaderia.Ingredientes,
                 Preparacion = mercaderia.Preparacion,
@@ -38,7 +38,7 @@ namespace Tp.Restaurante.Application.Services
                 
             };
             _repository.Add<Mercaderia>(entity);
-            return entity;
+            return new GenericCreatedResponseDto { Entity = "Mercaderia", Id = entity.MercaderiaId.ToString() };
 
         }
 
