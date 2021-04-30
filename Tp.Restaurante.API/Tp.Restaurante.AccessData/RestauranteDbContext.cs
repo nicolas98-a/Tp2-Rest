@@ -10,11 +10,12 @@ using Tp.Restaurante.Domain.Entities;
 namespace Tp.Restaurante.AccessData
 {
     public class RestauranteDbContext : DbContext
-    {    
+    {
+
         public RestauranteDbContext(DbContextOptions<RestauranteDbContext> options) : base(options)
         {
         }
-
+        
 
         public DbSet<Mercaderia> Mercaderias { get; set; }
         public DbSet<Comanda> Comandas { get; set; }

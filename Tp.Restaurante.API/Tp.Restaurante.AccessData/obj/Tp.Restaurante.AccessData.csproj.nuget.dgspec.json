@@ -47,6 +47,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[10.1.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.5, )"
@@ -60,6 +64,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.5, )"
+            },
+            "SqlKata": {
+              "target": "Package",
+              "version": "[2.3.2, )"
+            },
+            "SqlKata.Execution": {
+              "target": "Package",
+              "version": "[2.3.2, )"
             }
           },
           "imports": [

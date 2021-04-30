@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,16 @@ namespace Tp.Restaurante.AccessData.Commands
         {
             _context.Add(entity);
             _context.SaveChanges();
+        }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            _context.Remove(entity);
+        }
+
+        public void Update<T>(T entity) where T : class
+        {
+            _context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

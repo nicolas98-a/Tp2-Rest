@@ -21,9 +21,33 @@ namespace Tp.Restaurante.API.Controllers
         }
 
         [HttpPost]
-        public Mercaderia Post (MercaderiaDto mercaderia)
+        [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status201Created)]
+        public IActionResult Post(MercaderiaDto mercaderia)
         {
-            return _service.CreateMercaderia(mercaderia);
+            try
+            {
+                return new JsonResult(_service.CreateMercaderia(mercaderia)) { StatusCode = 201 };
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
+        }
+
+        [HttpGet("{Id}")]
+        [ProducesResponseType(typeof(ResponseGetMercaderiaById), StatusCodes.Status200OK)]
+        public IActionResult GetMercaderiaById(string Id)
+        {
+            try
+            {
+                return new JsonResult(_service.GetById(Id)) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

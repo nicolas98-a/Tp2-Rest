@@ -9,6 +9,7 @@ namespace Tp.Restaurante.Domain.DTOs
     public class MercaderiaDto
     {
         public string Nombre { get; set; }
+        public int Tipo { get; set; }
 
         public int Precio { get; set; }
 
@@ -18,6 +19,6 @@ namespace Tp.Restaurante.Domain.DTOs
 
         public string Imagen { get; set; }
 
-        public int TipoMercaderiaId { get; set; }
+        
     }
 }
