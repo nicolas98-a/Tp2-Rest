@@ -32,5 +32,33 @@ namespace Tp.Restaurante.API.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(List<ResponseGetAllComandaDto>), StatusCodes.Status200OK)]
+        public IActionResult GetComandas([FromQuery] string fecha)
+        {
+            try
+            {
+                return new JsonResult(_service.GetComandas(fecha)) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{Id}")]
+        [ProducesResponseType(typeof(ResponseGetComandaById), StatusCodes.Status200OK)]
+        public IActionResult GetComandaById(string Id)
+        {
+            try
+            {
+                return new JsonResult(_service.GetById(Id)) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

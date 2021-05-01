@@ -6,21 +6,26 @@ using System.Threading.Tasks;
 using Tp.Restaurante.Domain.Commands;
 using Tp.Restaurante.Domain.DTOs;
 using Tp.Restaurante.Domain.Entities;
+using Tp.Restaurante.Domain.Queries;
 
 namespace Tp.Restaurante.Application.Services
 {   
     public interface IComandaService
     {
         GenericCreatedResponseDto CreateComanda(CreateComandaRequestDto comandaDto);
+        List<ResponseGetAllComandaDto> GetComandas(string fecha);
+        ResponseGetComandaById GetById(string comandaId);
     }
     public class ComandaService : IComandaService
     {
         private readonly IGenericsRepository _repository;
         private readonly IMercaderiaService _mercaderiaService;
-        public ComandaService(IGenericsRepository repository , IMercaderiaService mercaderiaService)
+        private readonly IComandaQuery _query;
+        public ComandaService(IGenericsRepository repository , IMercaderiaService mercaderiaService, IComandaQuery query)
         {
             _repository = repository;
             _mercaderiaService = mercaderiaService;
+            _query = query;
         }
 
         public GenericCreatedResponseDto CreateComanda(CreateComandaRequestDto comandaDto)
@@ -73,6 +78,16 @@ namespace Tp.Restaurante.Application.Services
 
             };
             _repository.Add(entity);
+        }
+
+        public List<ResponseGetAllComandaDto> GetComandas(string fecha)
+        {
+            return _query.GetAllComanda(fecha);
+        }
+
+        public ResponseGetComandaById GetById(string comandaId)
+        {
+            return _query.GetById(comandaId);
         }
     }
 }

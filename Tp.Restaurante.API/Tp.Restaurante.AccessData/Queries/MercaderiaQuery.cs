@@ -27,7 +27,6 @@ namespace Tp.Restaurante.AccessData.Queries
             var db = new QueryFactory(connection, sqlKataCompiler);
             var query = db.Query("Mercaderias")
                 .Select("Mercaderias.Nombre",
-            //    "TipoMercaderia.TipoMercaderiaId",
                 "TipoMercaderia.Descripcion AS Tipo",
                 "Mercaderias.Precio",
                 "Mercaderias.Ingredientes",
