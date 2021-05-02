@@ -61,6 +61,31 @@ namespace Tp.Restaurante.API.Controllers
 
         }
 
+        [HttpDelete("{Id}")]
+        [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status404NotFound)]
+
+        public IActionResult DeleteMercaderia(int Id)
+        {
+            try
+            {
+                if (_service.DeleteMercaderia(Id))
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
         [HttpGet("{Id}")]
         [ProducesResponseType(typeof(ResponseGetMercaderiaById), StatusCodes.Status200OK)]
         public IActionResult GetMercaderiaById(string Id)

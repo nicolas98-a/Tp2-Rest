@@ -14,6 +14,7 @@ namespace Tp.Restaurante.Application.Services
     {
         GenericCreatedResponseDto CreateMercaderia(MercaderiaDto mercaderia);
         bool UpdateMercaderia(int id, MercaderiaDto mercaderiaDto);
+        bool DeleteMercaderia(int id);
         List<ResponseGetAllMercaderiaDto> GetMercaderias(string tipo);
         ResponseGetMercaderiaById GetById(string mercaderiaId);
     }
@@ -76,6 +77,22 @@ namespace Tp.Restaurante.Application.Services
                 return true;
 
             }
+        }
+
+        public bool DeleteMercaderia(int id)
+        {
+            Mercaderia mercaderia = _repository.Exists<Mercaderia>(id);
+            if (mercaderia == null)
+            {
+                return false;
+            }
+            else
+            {
+                _repository.Delete<Mercaderia>(mercaderia);
+
+                return true;
+            }
+
         }
     }
 }
