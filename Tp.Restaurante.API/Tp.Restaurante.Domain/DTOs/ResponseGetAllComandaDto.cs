@@ -15,7 +15,6 @@ namespace Tp.Restaurante.Domain.DTOs
         public DateTime Fecha { get; set; }
 
         public string FormaEntrega { get; set; }
-
-        public string Mercaderia { get; set; }
     }
+
 }

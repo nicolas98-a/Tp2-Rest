@@ -13,7 +13,7 @@ namespace Tp.Restaurante.Application.Services
     public interface IComandaService
     {
         GenericCreatedResponseDto CreateComanda(CreateComandaRequestDto comandaDto);
-        List<ResponseGetAllComandaDto> GetComandas(string fecha);
+        List<ResponseGetComandaById> GetComandas(string fecha);
         ResponseGetComandaById GetById(string comandaId);
     }
     public class ComandaService : IComandaService
@@ -80,7 +80,7 @@ namespace Tp.Restaurante.Application.Services
             _repository.Add(entity);
         }
 
-        public List<ResponseGetAllComandaDto> GetComandas(string fecha)
+        public List<ResponseGetComandaById> GetComandas(string fecha)
         {
             return _query.GetAllComanda(fecha);
         }

@@ -9,7 +9,7 @@ namespace Tp.Restaurante.Domain.Queries
 {
     public interface IComandaQuery
     {
-        List<ResponseGetAllComandaDto> GetAllComanda(string fecha);
+        List<ResponseGetComandaById> GetAllComanda(string fecha);
         ResponseGetComandaById GetById(string comandaId);
     }
 }

@@ -25,22 +25,28 @@ namespace Tp.Restaurante.AccessData.Queries
             _mercaderiaservice = service;
         }
 
-        public List<ResponseGetAllComandaDto> GetAllComanda(string fecha)
-        {   
+        public List<ResponseGetComandaById> GetAllComanda(string fecha)
+        {
+            List<ResponseGetComandaById> allComandaDtos = new List<ResponseGetComandaById>();
             var db = new QueryFactory(connection, sqlKataCompiler);
             
             var query = db.Query("Comandas")
                 .Select("Comandas.ComandaId",
                 "Comandas.PrecioTotal",
                 "Comandas.Fecha",
-                "FormaEntrega.Descripcion AS FormaEntrega",
-                "Mercaderias.Nombre AS Mercaderia")
+                "FormaEntrega.Descripcion AS FormaEntrega")
                 .Join("FormaEntrega", "FormaEntrega.FormaEntregaId", "Comandas.FormaEntregaId")
-                .Join("ComandaMercaderias", "ComandaMercaderias.ComandaId", "Comandas.ComandaId")
-                .Join("Mercaderias", "Mercaderias.MercaderiaId", "ComandaMercaderias.MercaderiaId")
                 .When(!string.IsNullOrWhiteSpace(fecha), q => q.WhereLike("Comandas.Fecha", $"%{fecha}%"));
-            var result = query.Get<ResponseGetAllComandaDto>();
-            return result.ToList();
+
+            var allComandas = query.Get<ResponseGetAllComandaDto>().ToList();
+            foreach (var comanda in allComandas)
+            {
+                ResponseGetComandaById comandaById = GetById(comanda.ComandaId.ToString());
+                allComandaDtos.Add(comandaById);
+            }
+
+            return allComandaDtos;
+
         }
 
         public ResponseGetComandaById GetById(string comandaId)

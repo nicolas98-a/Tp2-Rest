@@ -34,7 +34,7 @@ namespace Tp.Restaurante.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<ResponseGetAllComandaDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ResponseGetComandaById>), StatusCodes.Status200OK)]
         public IActionResult GetComandas([FromQuery] string fecha)
         {
             try
