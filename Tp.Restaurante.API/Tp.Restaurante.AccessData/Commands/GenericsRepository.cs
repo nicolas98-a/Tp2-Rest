@@ -30,6 +30,12 @@ namespace Tp.Restaurante.AccessData.Commands
         public void Update<T>(T entity) where T : class
         {
             _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+        public T Exists<T>(int id) where T : class
+        {
+           var x = _context.Find<T>(id);
+            return x;
         }
     }
 }

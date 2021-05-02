@@ -36,6 +36,31 @@ namespace Tp.Restaurante.API.Controllers
             
         }
 
+        [HttpPut("{Id}")]
+        [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status404NotFound)]
+
+        public IActionResult PutMercaderia(int Id , MercaderiaDto mercaderia)
+        {
+            try
+            {
+                if(_service.UpdateMercaderia(Id, mercaderia))
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return NotFound();
+                }
+                             
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
         [HttpGet("{Id}")]
         [ProducesResponseType(typeof(ResponseGetMercaderiaById), StatusCodes.Status200OK)]
         public IActionResult GetMercaderiaById(string Id)

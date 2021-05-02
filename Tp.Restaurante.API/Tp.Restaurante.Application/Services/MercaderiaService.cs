@@ -13,6 +13,7 @@ namespace Tp.Restaurante.Application.Services
     public interface IMercaderiaService
     {
         GenericCreatedResponseDto CreateMercaderia(MercaderiaDto mercaderia);
+        bool UpdateMercaderia(int id, MercaderiaDto mercaderiaDto);
         List<ResponseGetAllMercaderiaDto> GetMercaderias(string tipo);
         ResponseGetMercaderiaById GetById(string mercaderiaId);
     }
@@ -51,6 +52,30 @@ namespace Tp.Restaurante.Application.Services
         public ResponseGetMercaderiaById GetById(string mercaderiaId)
         {
             return _query.GetById(mercaderiaId);
+        }
+
+        public bool UpdateMercaderia(int id, MercaderiaDto mercaderiaDto)
+        {
+            Mercaderia mercaderia = _repository.Exists<Mercaderia>(id);
+            if (mercaderia == null)
+            {
+                return false;
+            }
+            else
+            {
+              
+                mercaderia.Nombre = mercaderiaDto.Nombre;
+                mercaderia.TipoMercaderiaId = mercaderiaDto.TipoMercaderiaId;
+                mercaderia.Precio = mercaderiaDto.Precio;
+                mercaderia.Ingredientes = mercaderiaDto.Ingredientes;
+                mercaderia.Preparacion = mercaderiaDto.Preparacion;
+                mercaderia.Imagen = mercaderiaDto.Imagen;
+
+                _repository.Update<Mercaderia>(mercaderia);
+
+                return true;
+
+            }
         }
     }
 }
