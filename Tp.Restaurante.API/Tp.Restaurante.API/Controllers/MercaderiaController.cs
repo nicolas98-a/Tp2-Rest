@@ -20,6 +20,11 @@ namespace Tp.Restaurante.API.Controllers
             _service = service;
         }
 
+        /// <summary>
+        /// Agrega una mercaderia
+        /// </summary>
+        /// <param name="mercaderia"></param>
+        /// <returns>Retorna el id de la mercaderia y la entidad a la que pertenece</returns>
         [HttpPost]
         [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status201Created)]
         public IActionResult Post(MercaderiaDto mercaderia)
@@ -35,7 +40,12 @@ namespace Tp.Restaurante.API.Controllers
             }
             
         }
-
+        /// <summary>
+        /// Actualiza los datos de una mercaderia 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="mercaderia"></param>
+        /// <returns>No retorna contenido</returns>
         [HttpPut("{Id}")]
         [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status404NotFound)]
@@ -61,6 +71,11 @@ namespace Tp.Restaurante.API.Controllers
 
         }
 
+        /// <summary>
+        /// Borra una mercaderia
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>No retorna contenido</returns>
         [HttpDelete("{Id}")]
         [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Mercaderia), StatusCodes.Status404NotFound)]
@@ -86,6 +101,11 @@ namespace Tp.Restaurante.API.Controllers
 
         }
 
+        /// <summary>
+        /// Devuelve una mercaderia segun su id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Retorna los datos de la mercaderia</returns>
         [HttpGet("{Id}")]
         [ProducesResponseType(typeof(ResponseGetMercaderiaById), StatusCodes.Status200OK)]
         public IActionResult GetMercaderiaById(string Id)
@@ -100,6 +120,11 @@ namespace Tp.Restaurante.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve toda la mercaderia que hay, permite filtrar por tipo
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns>Retorna los datos de la mercaderia</returns>
         [HttpGet]
         [ProducesResponseType(typeof(List<ResponseGetAllMercaderiaDto>), StatusCodes.Status200OK)]
         public IActionResult GetMercaderias([FromQuery]string tipo)

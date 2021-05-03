@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tp.Restaurante.Domain.Entities;
 
-namespace Tp.Restaurante.AccessData.Validation
+namespace Tp.Restaurante.Domain.Validation
 {
     public class MercaderiaValidator : AbstractValidator<Mercaderia>
     {

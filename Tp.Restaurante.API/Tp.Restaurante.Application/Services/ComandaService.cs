@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using Tp.Restaurante.Domain.Commands;
 using Tp.Restaurante.Domain.DTOs;
 using Tp.Restaurante.Domain.Entities;
 using Tp.Restaurante.Domain.Queries;
+using Tp.Restaurante.Domain.Validation;
 
 namespace Tp.Restaurante.Application.Services
 {   
@@ -45,6 +47,11 @@ namespace Tp.Restaurante.Application.Services
                 Fecha = new DateTime()
 
             };
+            
+
+            ComandaValidator validator = new ComandaValidator();
+            validator.ValidateAndThrow(entity);
+
             _repository.Add(entity);
 
             foreach (ResponseGetMercaderiaById item in listaMercaderias)

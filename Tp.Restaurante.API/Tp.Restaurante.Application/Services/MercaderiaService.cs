@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using Tp.Restaurante.Domain.Commands;
 using Tp.Restaurante.Domain.DTOs;
 using Tp.Restaurante.Domain.Entities;
 using Tp.Restaurante.Domain.Queries;
+using Tp.Restaurante.Domain.Validation;
 
 namespace Tp.Restaurante.Application.Services
 {   
@@ -22,6 +24,7 @@ namespace Tp.Restaurante.Application.Services
     {
         private readonly IGenericsRepository _repository;
         private readonly IMercaderiaQuery _query;
+        
         public MercaderiaService (IGenericsRepository repository, IMercaderiaQuery query)
         {
             _repository = repository;
@@ -40,6 +43,9 @@ namespace Tp.Restaurante.Application.Services
                 Imagen = mercaderia.Imagen 
                 
             };
+            MercaderiaValidator validator = new MercaderiaValidator();
+            validator.ValidateAndThrow(entity);
+           
             _repository.Add<Mercaderia>(entity);
             return new GenericCreatedResponseDto { Entity = "Mercaderia", Id = entity.MercaderiaId.ToString() };
 
@@ -71,6 +77,9 @@ namespace Tp.Restaurante.Application.Services
                 mercaderia.Ingredientes = mercaderiaDto.Ingredientes;
                 mercaderia.Preparacion = mercaderiaDto.Preparacion;
                 mercaderia.Imagen = mercaderiaDto.Imagen;
+
+                MercaderiaValidator validator = new MercaderiaValidator();
+                validator.ValidateAndThrow(mercaderia);
 
                 _repository.Update<Mercaderia>(mercaderia);
 

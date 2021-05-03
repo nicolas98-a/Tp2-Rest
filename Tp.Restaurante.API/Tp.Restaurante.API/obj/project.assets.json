@@ -1748,6 +1748,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "FluentValidation.AspNetCore": "10.1.0",
           "Tp.Restaurante.Domain": "1.0.0"
         },
         "compile": {
@@ -1760,6 +1761,9 @@
       "Tp.Restaurante.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "FluentValidation.AspNetCore": "10.1.0"
+        },
         "compile": {
           "bin/placeholder/Tp.Restaurante.Domain.dll": {}
         },

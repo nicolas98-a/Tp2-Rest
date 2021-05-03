@@ -15,16 +15,18 @@ using SqlKata.Compilers;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Tp.Restaurante.AccessData;
 using Tp.Restaurante.AccessData.Commands;
 using Tp.Restaurante.AccessData.Queries;
-using Tp.Restaurante.AccessData.Validation;
 using Tp.Restaurante.Application.Services;
 using Tp.Restaurante.Domain.Commands;
 using Tp.Restaurante.Domain.Entities;
 using Tp.Restaurante.Domain.Queries;
+using Tp.Restaurante.Domain.Validation;
 
 namespace Tp.Restaurante.API
 {
@@ -61,10 +63,24 @@ namespace Tp.Restaurante.API
             services.AddTransient<IComandaQuery, ComandaQuery>();
 
             services.AddTransient<IValidator<Mercaderia>, MercaderiaValidator>();
+            services.AddTransient<IValidator<Comanda>, ComandaValidator>();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tp.Restaurante.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Menu Digital Documentacion",
+                    Version = "v1",
+                    Description = "REST API para la aplicacion de un Menu Digital para un Restaurante",
+                    Contact = new OpenApiContact()
+                    {
+                        Name = "Nicolas Acuña",
+                        Email = "a.nico.1998@hotmail.com"
+                    }
+                } );
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -75,7 +91,7 @@ namespace Tp.Restaurante.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tp.Restaurante.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Menu Digital API v1"));
             }
 
             app.UseHttpsRedirection();

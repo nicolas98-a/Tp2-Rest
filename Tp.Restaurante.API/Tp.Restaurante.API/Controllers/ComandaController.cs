@@ -19,6 +19,11 @@ namespace Tp.Restaurante.API.Controllers
             _service = service;
         }
 
+        /// <summary>
+        /// Agrega una comanda
+        /// </summary>
+        /// <param name="comanda"></param>
+        /// <returns>Retorna el id de la comanda y la entidad a la que pertenece</returns>
         [HttpPost]
         [ProducesResponseType(typeof(GenericCreatedResponseDto), StatusCodes.Status201Created)]
         public IActionResult Post(CreateComandaRequestDto comanda)
@@ -33,6 +38,11 @@ namespace Tp.Restaurante.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve todas las comadas, permite filtrar por fecha
+        /// </summary>
+        /// <param name="fecha"></param>
+        /// <returns>Retorna la informacion de las comandas</returns>
         [HttpGet]
         [ProducesResponseType(typeof(List<ResponseGetComandaById>), StatusCodes.Status200OK)]
         public IActionResult GetComandas([FromQuery] string fecha)
@@ -47,6 +57,11 @@ namespace Tp.Restaurante.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve la comada que corresponde al id ingresado
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Retorna la informacion de la comanda</returns>
         [HttpGet("{Id}")]
         [ProducesResponseType(typeof(ResponseGetComandaById), StatusCodes.Status200OK)]
         public IActionResult GetComandaById(string Id)

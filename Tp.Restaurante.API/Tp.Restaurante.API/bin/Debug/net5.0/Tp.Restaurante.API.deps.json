@@ -26,7 +26,7 @@
     "optimize": false,
     "keyFile": "",
     "emitEntryPoint": true,
-    "xmlDoc": false,
+    "xmlDoc": true,
     "debugType": "portable"
   },
   "targets": {
@@ -1552,6 +1552,7 @@
       },
       "Tp.Restaurante.Application/1.0.0": {
         "dependencies": {
+          "FluentValidation.AspNetCore": "10.1.0",
           "Tp.Restaurante.Domain": "1.0.0"
         },
         "runtime": {
@@ -1562,6 +1563,9 @@
         }
       },
       "Tp.Restaurante.Domain/1.0.0": {
+        "dependencies": {
+          "FluentValidation.AspNetCore": "10.1.0"
+        },
         "runtime": {
           "Tp.Restaurante.Domain.dll": {}
         },
