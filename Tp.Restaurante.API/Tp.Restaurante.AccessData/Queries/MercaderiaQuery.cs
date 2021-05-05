@@ -39,7 +39,7 @@ namespace Tp.Restaurante.AccessData.Queries
             var result = query.Get<ResponseGetAllMercaderiaDto>();
             return result.ToList();
         }
-
+        /*
         public ResponseGetMercaderiaById GetById(string mercaderiaId)
         {
             var db = new QueryFactory(connection, sqlKataCompiler);
@@ -48,6 +48,7 @@ namespace Tp.Restaurante.AccessData.Queries
                 .Select("Nombre", "TipoMercaderiaId", "Precio", "Ingredientes", "Preparacion", "Imagen")
                 .Where("MercaderiaId", "=", mercaderiaId)
                 .FirstOrDefault<MercaderiaDto>();
+
 
             var tipo = db.Query("TipoMercaderia")
                 .Select("TipoMercaderiaId", "Descripcion")
@@ -64,6 +65,43 @@ namespace Tp.Restaurante.AccessData.Queries
                 Imagen = mercaderia.Imagen,
                 MercaderiaId = int.Parse(mercaderiaId)
             };
+
+        }    */
+
+        public ResponseGetMercaderiaById GetById(string mercaderiaId)
+        {
+            var db = new QueryFactory(connection, sqlKataCompiler);
+            var query = db.Query("Mercaderias")
+                .Select("Mercaderias.Nombre",
+                "TipoMercaderia.Descripcion AS Tipo",
+                "Mercaderias.Precio",
+                "Mercaderias.Ingredientes",
+                "Mercaderias.Preparacion",
+                "Mercaderias.Imagen",
+                "Mercaderias.MercaderiaId")
+                .Join("TipoMercaderia", "TipoMercaderia.TipoMercaderiaId", "Mercaderias.TipoMercaderiaId")
+                .Where("MercaderiaId", "=", mercaderiaId)
+                .FirstOrDefault<ResponseGetAllMercaderiaDto>();
+
+            if (query != null)
+            {
+                return new ResponseGetMercaderiaById
+                {
+                    Nombre = query.Nombre,
+                    Tipo = query.Tipo,
+                    Precio = query.Precio,
+                    Ingredientes = query.Ingredientes,
+                    Preparacion = query.Preparacion,
+                    Imagen = query.Imagen,
+                    MercaderiaId = int.Parse(mercaderiaId)
+                };
+            }
+            else
+            {
+                return null;
+            }
+
+
 
         }
     }

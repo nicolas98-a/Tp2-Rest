@@ -36,7 +36,17 @@ namespace Tp.Restaurante.Application.Services
             foreach (var item in comandaDto.Mercaderias)
             {
                  ResponseGetMercaderiaById mercaderia = _mercaderiaService.GetById(item.ToString());
-                listaMercaderias.Add(mercaderia);
+                if(mercaderia == null)
+                {
+                    NullReferenceException exception = new NullReferenceException("Mercaderia con id " + item.ToString() + " no encontrada");
+                    throw exception;
+                    
+                }
+                else
+                {
+                    listaMercaderias.Add(mercaderia);
+                }
+
             }
             int total = Calcularpreciototal(listaMercaderias); 
             var entity = new Comanda

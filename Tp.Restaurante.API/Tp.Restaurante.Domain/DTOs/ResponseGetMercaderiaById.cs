@@ -20,11 +20,11 @@ namespace Tp.Restaurante.Domain.DTOs
         public string Imagen { get; set; }
         public int MercaderiaId { get; set; }
     }
-
+    /*
     public class ResponseGetMercaderiaByIdTipo
     {
         public int TipoMercaderiaId { get; set; }
 
         public string Descripcion { get; set; }
-    }
+    }   */
 }
