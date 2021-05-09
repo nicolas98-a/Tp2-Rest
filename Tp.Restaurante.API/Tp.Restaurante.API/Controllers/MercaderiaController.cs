@@ -60,7 +60,7 @@ namespace Tp.Restaurante.API.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    return NotFound("No se encontro la mercaderia con el id ingresado");
                 }
                              
             }
@@ -111,7 +111,7 @@ namespace Tp.Restaurante.API.Controllers
         public IActionResult GetMercaderiaById(string Id)
         {
             try
-            {
+            {   
                 return new JsonResult(_service.GetById(Id)) { StatusCode = 200 };
             }
             catch (Exception e)
