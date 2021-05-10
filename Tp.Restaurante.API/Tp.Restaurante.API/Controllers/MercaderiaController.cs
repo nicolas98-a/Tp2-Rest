@@ -36,7 +36,7 @@ namespace Tp.Restaurante.API.Controllers
             }
             catch (Exception e)
             {
-                return new JsonResult(BadRequest(e.Message)) { StatusCode = 400 };
+                return BadRequest(e.Message);
             }
             
         }
@@ -116,7 +116,7 @@ namespace Tp.Restaurante.API.Controllers
             }
             catch (Exception e)
             {
-                return new JsonResult(BadRequest(e.Message));
+                 return new JsonResult(BadRequest(e.Message)) { StatusCode = 400 };
             }
         }
 

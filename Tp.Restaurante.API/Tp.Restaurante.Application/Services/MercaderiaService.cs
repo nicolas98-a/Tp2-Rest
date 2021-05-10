@@ -21,20 +21,16 @@ namespace Tp.Restaurante.Application.Services
     {
         private readonly IGenericsRepository _repository;
         private readonly IMercaderiaQuery _query;
-        private readonly ITipoMercaderiaQuery _tipoMercaderiaQuery;
         
-        public MercaderiaService (IGenericsRepository repository, IMercaderiaQuery query, ITipoMercaderiaQuery tipoMercaderiaQuery)
+        public MercaderiaService (IGenericsRepository repository, IMercaderiaQuery query)
         {
             _repository = repository;
             _query = query;
-            _tipoMercaderiaQuery = tipoMercaderiaQuery;
+ 
         }
 
         public GenericCreatedResponseDto CreateMercaderia(MercaderiaDto mercaderia)
-        {
-            List<ResponseGetAllTipoMercaderia> allTipoMercaderias = _tipoMercaderiaQuery.GetAllTipoMercaderias();
-            if (mercaderia.TipoMercaderiaId >0 && mercaderia.TipoMercaderiaId <= allTipoMercaderias.Count)
-            {
+        {          
                 var entity = new Mercaderia
                 {
                     Nombre = mercaderia.Nombre,
@@ -46,27 +42,29 @@ namespace Tp.Restaurante.Application.Services
 
                 };
 
-
                 _repository.Add<Mercaderia>(entity);
-                return new GenericCreatedResponseDto { Entity = "Mercaderia", Id = entity.MercaderiaId.ToString() };
-            }
-            else
-            {
-                Exception exception = new Exception( mercaderia.TipoMercaderiaId.ToString() + " no correspondea un tipo de mercaderia valido, debe ingresar entr 1 y " + allTipoMercaderias.Count.ToString());
-                throw exception;
-            }
-
+                return new GenericCreatedResponseDto { Entity = "Mercaderia", Id = entity.MercaderiaId.ToString() };          
 
         }
 
         public List<ResponseGetAllMercaderiaDto> GetMercaderias(string tipo)
         {
-            return _query.GetAllMercaderia(tipo);
+           return _query.GetAllMercaderia(tipo);
         }
 
         public ResponseGetMercaderiaById GetById(string mercaderiaId)
         {
-            return _query.GetById(mercaderiaId);
+            ResponseGetMercaderiaById mercaderiaById = _query.GetById(mercaderiaId);
+            if (mercaderiaById == null)
+            {
+                NullReferenceException exception = new NullReferenceException("Mercaderia con id " + mercaderiaId + " no encontrada");
+                throw exception;
+            }
+            else
+            {
+                return mercaderiaById;
+            }
+
         }
 
         public bool UpdateMercaderia(int id, MercaderiaDto mercaderiaDto)

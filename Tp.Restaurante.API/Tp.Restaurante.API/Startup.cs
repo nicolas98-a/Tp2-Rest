@@ -1,4 +1,3 @@
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,9 +17,7 @@ using Tp.Restaurante.AccessData.Commands;
 using Tp.Restaurante.AccessData.Queries;
 using Tp.Restaurante.Application.Filters;
 using Tp.Restaurante.Application.Services;
-using Tp.Restaurante.Application.Validation;
 using Tp.Restaurante.Domain.Commands;
-using Tp.Restaurante.Domain.Entities;
 using Tp.Restaurante.Domain.Queries;
 
 namespace Tp.Restaurante.API
@@ -56,8 +53,6 @@ namespace Tp.Restaurante.API
             services.AddTransient<IComandaService, ComandaService>();
             services.AddTransient<IMercaderiaQuery, MercaderiaQuery>();
             services.AddTransient<IComandaQuery, ComandaQuery>();
-            services.AddTransient<IFormaEntregaQuery, FormaEntregaQuery>();
-            services.AddTransient<ITipoMercaderiaQuery, TipoMercaderiaQuery>();
 
             services.AddMvc(options =>
             {

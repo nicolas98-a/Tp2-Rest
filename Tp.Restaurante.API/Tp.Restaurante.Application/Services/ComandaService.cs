@@ -20,13 +20,13 @@ namespace Tp.Restaurante.Application.Services
         private readonly IGenericsRepository _repository;
         private readonly IMercaderiaService _mercaderiaService;
         private readonly IComandaQuery _query;
-        private readonly IFormaEntregaQuery _formaEntregaQuery;
-        public ComandaService(IGenericsRepository repository , IMercaderiaService mercaderiaService, IComandaQuery query, IFormaEntregaQuery formaEntregaQuery)
+
+        public ComandaService(IGenericsRepository repository , IMercaderiaService mercaderiaService, IComandaQuery query)
         {
             _repository = repository;
             _mercaderiaService = mercaderiaService;
             _query = query;
-            _formaEntregaQuery = formaEntregaQuery;
+
         }
 
         public GenericCreatedResponseDto CreateComanda(CreateComandaRequestDto comandaDto)
@@ -49,30 +49,23 @@ namespace Tp.Restaurante.Application.Services
             }
             int total = Calcularpreciototal(listaMercaderias);
 
-            List<ResponseGetAllFormaEntrega> allFormaEntregas = _formaEntregaQuery.GetAllFormaEntregas();
-            if (comandaDto.FormaEntrega > 0 && comandaDto.FormaEntrega <= allFormaEntregas.Count)
+            var entity = new Comanda
             {
-                var entity = new Comanda
-                {
-                    ComandaId = new Guid(),
-                    FormaEntregaId = comandaDto.FormaEntrega,
-                    PrecioTotal = total,
-                    Fecha = new DateTime()
+               ComandaId = new Guid(),
+               FormaEntregaId = comandaDto.FormaEntrega,
+               PrecioTotal = total,
+               Fecha = new DateTime()
 
-                };
-                _repository.Add(entity);
+            };
+            _repository.Add(entity);
 
-                foreach (ResponseGetMercaderiaById item in listaMercaderias)
-                {
-                    RegistrarComandaMercaderia(item.MercaderiaId, entity.ComandaId);
-                }
-                return new GenericCreatedResponseDto { Entity = "Comanda", Id = entity.ComandaId.ToString() };
-            }
-            else
+            foreach (ResponseGetMercaderiaById item in listaMercaderias)
             {
-                Exception exception = new Exception(comandaDto.FormaEntrega.ToString() +  " no corresponde a una forma de entrega valida, debe ingresar entre 1 y " + allFormaEntregas.Count.ToString());
-                throw exception;
+                 RegistrarComandaMercaderia(item.MercaderiaId, entity.ComandaId);
             }
+
+            return new GenericCreatedResponseDto { Entity = "Comanda", Id = entity.ComandaId.ToString() };
+
 
         }
 
