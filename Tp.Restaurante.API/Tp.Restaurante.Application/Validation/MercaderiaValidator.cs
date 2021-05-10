@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tp.Restaurante.Domain.DTOs;
 using Tp.Restaurante.Domain.Entities;
 
-namespace Tp.Restaurante.Domain.Validation
+namespace Tp.Restaurante.Application.Validation
 {
-    public class MercaderiaValidator : AbstractValidator<Mercaderia>
+    public class MercaderiaValidator : AbstractValidator<MercaderiaDto>
     {
         public MercaderiaValidator()
         {
@@ -21,7 +22,7 @@ namespace Tp.Restaurante.Domain.Validation
             RuleFor(e => e.Imagen).NotNull().NotEmpty().WithMessage("El campo imagen no puede quedar vacio");
             RuleFor(e => e.Imagen).MaximumLength(255).WithMessage("Cantidad de caracteres de imagen excedida");
             RuleFor(e => e.Precio).GreaterThan(-1).WithMessage("El precio del producto debe ser igual o mayor que cero");
-            RuleFor(e => e.TipoMercaderiaId).InclusiveBetween(1, 10).WithMessage("Debe seleccionar entre 1 y 10");
+          
 
         }
     }

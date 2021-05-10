@@ -1,17 +1,14 @@
 ﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Tp.Restaurante.Application.Validation;
 using Tp.Restaurante.Domain.Commands;
 using Tp.Restaurante.Domain.DTOs;
 using Tp.Restaurante.Domain.Entities;
 using Tp.Restaurante.Domain.Queries;
-using Tp.Restaurante.Domain.Validation;
 
 namespace Tp.Restaurante.Application.Services
-{   
+{
     public interface IMercaderiaService
     {
         GenericCreatedResponseDto CreateMercaderia(MercaderiaDto mercaderia);
@@ -24,30 +21,41 @@ namespace Tp.Restaurante.Application.Services
     {
         private readonly IGenericsRepository _repository;
         private readonly IMercaderiaQuery _query;
+        private readonly ITipoMercaderiaQuery _tipoMercaderiaQuery;
         
-        public MercaderiaService (IGenericsRepository repository, IMercaderiaQuery query)
+        public MercaderiaService (IGenericsRepository repository, IMercaderiaQuery query, ITipoMercaderiaQuery tipoMercaderiaQuery)
         {
             _repository = repository;
             _query = query;
+            _tipoMercaderiaQuery = tipoMercaderiaQuery;
         }
 
         public GenericCreatedResponseDto CreateMercaderia(MercaderiaDto mercaderia)
         {
-            var entity = new Mercaderia
+            List<ResponseGetAllTipoMercaderia> allTipoMercaderias = _tipoMercaderiaQuery.GetAllTipoMercaderias();
+            if (mercaderia.TipoMercaderiaId >0 && mercaderia.TipoMercaderiaId <= allTipoMercaderias.Count)
             {
-                Nombre = mercaderia.Nombre,
-                TipoMercaderiaId = mercaderia.TipoMercaderiaId,
-                Precio = mercaderia.Precio,
-                Ingredientes = mercaderia.Ingredientes,
-                Preparacion = mercaderia.Preparacion,
-                Imagen = mercaderia.Imagen 
-                
-            };
-            MercaderiaValidator validator = new MercaderiaValidator();
-            validator.ValidateAndThrow(entity);
-           
-            _repository.Add<Mercaderia>(entity);
-            return new GenericCreatedResponseDto { Entity = "Mercaderia", Id = entity.MercaderiaId.ToString() };
+                var entity = new Mercaderia
+                {
+                    Nombre = mercaderia.Nombre,
+                    TipoMercaderiaId = mercaderia.TipoMercaderiaId,
+                    Precio = mercaderia.Precio,
+                    Ingredientes = mercaderia.Ingredientes,
+                    Preparacion = mercaderia.Preparacion,
+                    Imagen = mercaderia.Imagen
+
+                };
+
+
+                _repository.Add<Mercaderia>(entity);
+                return new GenericCreatedResponseDto { Entity = "Mercaderia", Id = entity.MercaderiaId.ToString() };
+            }
+            else
+            {
+                Exception exception = new Exception( mercaderia.TipoMercaderiaId.ToString() + " no correspondea un tipo de mercaderia valido, debe ingresar entr 1 y " + allTipoMercaderias.Count.ToString());
+                throw exception;
+            }
+
 
         }
 
@@ -78,8 +86,7 @@ namespace Tp.Restaurante.Application.Services
                 mercaderia.Preparacion = mercaderiaDto.Preparacion;
                 mercaderia.Imagen = mercaderiaDto.Imagen;
 
-                MercaderiaValidator validator = new MercaderiaValidator();
-                validator.ValidateAndThrow(mercaderia);
+                
 
                 _repository.Update<Mercaderia>(mercaderia);
 

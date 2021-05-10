@@ -1,17 +1,14 @@
 ﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Tp.Restaurante.Application.Validation;
 using Tp.Restaurante.Domain.Commands;
 using Tp.Restaurante.Domain.DTOs;
 using Tp.Restaurante.Domain.Entities;
 using Tp.Restaurante.Domain.Queries;
-using Tp.Restaurante.Domain.Validation;
 
 namespace Tp.Restaurante.Application.Services
-{   
+{
     public interface IComandaService
     {
         GenericCreatedResponseDto CreateComanda(CreateComandaRequestDto comandaDto);
@@ -23,11 +20,13 @@ namespace Tp.Restaurante.Application.Services
         private readonly IGenericsRepository _repository;
         private readonly IMercaderiaService _mercaderiaService;
         private readonly IComandaQuery _query;
-        public ComandaService(IGenericsRepository repository , IMercaderiaService mercaderiaService, IComandaQuery query)
+        private readonly IFormaEntregaQuery _formaEntregaQuery;
+        public ComandaService(IGenericsRepository repository , IMercaderiaService mercaderiaService, IComandaQuery query, IFormaEntregaQuery formaEntregaQuery)
         {
             _repository = repository;
             _mercaderiaService = mercaderiaService;
             _query = query;
+            _formaEntregaQuery = formaEntregaQuery;
         }
 
         public GenericCreatedResponseDto CreateComanda(CreateComandaRequestDto comandaDto)
@@ -48,28 +47,32 @@ namespace Tp.Restaurante.Application.Services
                 }
 
             }
-            int total = Calcularpreciototal(listaMercaderias); 
-            var entity = new Comanda
+            int total = Calcularpreciototal(listaMercaderias);
+
+            List<ResponseGetAllFormaEntrega> allFormaEntregas = _formaEntregaQuery.GetAllFormaEntregas();
+            if (comandaDto.FormaEntrega > 0 && comandaDto.FormaEntrega <= allFormaEntregas.Count)
             {
-                ComandaId = new Guid(),
-                FormaEntregaId = comandaDto.FormaEntrega,
-                PrecioTotal = total,
-                Fecha = new DateTime()
+                var entity = new Comanda
+                {
+                    ComandaId = new Guid(),
+                    FormaEntregaId = comandaDto.FormaEntrega,
+                    PrecioTotal = total,
+                    Fecha = new DateTime()
 
-            };
-            
+                };
+                _repository.Add(entity);
 
-            ComandaValidator validator = new ComandaValidator();
-            validator.ValidateAndThrow(entity);
-
-            _repository.Add(entity);
-
-            foreach (ResponseGetMercaderiaById item in listaMercaderias)
-            {
-                RegistrarComandaMercaderia(item.MercaderiaId, entity.ComandaId);
+                foreach (ResponseGetMercaderiaById item in listaMercaderias)
+                {
+                    RegistrarComandaMercaderia(item.MercaderiaId, entity.ComandaId);
+                }
+                return new GenericCreatedResponseDto { Entity = "Comanda", Id = entity.ComandaId.ToString() };
             }
-            return new GenericCreatedResponseDto { Entity = "Comanda", Id = entity.ComandaId.ToString() };
-
+            else
+            {
+                Exception exception = new Exception(comandaDto.FormaEntrega.ToString() +  " no corresponde a una forma de entrega valida, debe ingresar entre 1 y " + allFormaEntregas.Count.ToString());
+                throw exception;
+            }
 
         }
 

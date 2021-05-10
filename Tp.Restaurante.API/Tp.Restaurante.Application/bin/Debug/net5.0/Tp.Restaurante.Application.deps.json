@@ -49,9 +49,6 @@
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {},
       "Tp.Restaurante.Domain/1.0.0": {
-        "dependencies": {
-          "FluentValidation.AspNetCore": "10.1.0"
-        },
         "runtime": {
           "Tp.Restaurante.Domain.dll": {}
         }

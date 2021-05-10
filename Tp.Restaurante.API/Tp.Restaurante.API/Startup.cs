@@ -2,31 +2,26 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SqlKata.Compilers;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Tp.Restaurante.AccessData;
 using Tp.Restaurante.AccessData.Commands;
 using Tp.Restaurante.AccessData.Queries;
+using Tp.Restaurante.Application.Filters;
 using Tp.Restaurante.Application.Services;
+using Tp.Restaurante.Application.Validation;
 using Tp.Restaurante.Domain.Commands;
 using Tp.Restaurante.Domain.Entities;
 using Tp.Restaurante.Domain.Queries;
-using Tp.Restaurante.Domain.Validation;
 
 namespace Tp.Restaurante.API
 {
@@ -43,7 +38,7 @@ namespace Tp.Restaurante.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers().AddFluentValidation();
+            services.AddControllers();
             var connectionstring = Configuration.GetSection("ConnectionString").Value;
             // EF Core
             services.AddDbContext<RestauranteDbContext>(options => options.UseSqlServer(connectionstring));
@@ -61,9 +56,16 @@ namespace Tp.Restaurante.API
             services.AddTransient<IComandaService, ComandaService>();
             services.AddTransient<IMercaderiaQuery, MercaderiaQuery>();
             services.AddTransient<IComandaQuery, ComandaQuery>();
+            services.AddTransient<IFormaEntregaQuery, FormaEntregaQuery>();
+            services.AddTransient<ITipoMercaderiaQuery, TipoMercaderiaQuery>();
 
-            services.AddTransient<IValidator<Mercaderia>, MercaderiaValidator>();
-            services.AddTransient<IValidator<Comanda>, ComandaValidator>();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<ValidationFilter>();
+            }).AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            });
 
             services.AddSwaggerGen(c =>
             {

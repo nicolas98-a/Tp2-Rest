@@ -34,7 +34,7 @@ namespace Tp.Restaurante.API.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return new JsonResult(BadRequest(e.Message));
             }
         }
 

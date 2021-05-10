@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XJc9hRl+13FzAFTUYqD3RY7HcXMDDu9qmQknRUbV8SIcdoECRaemwZ97+C0Q02cTyp/DSM9woMQZVF+S+ieoWA==",
+  "dgSpecHash": "2QBZlE4ZFt8YakJKgJ7eVbcaTmB/Zm7+AqDFCUUA8w6k1QHv3jqmCxxDgYG1s+JM9Lx53D3kIQO+wJszKDB0Sw==",
   "success": true,
   "projectFilePath": "G:\\Visual Studio\\Tp2-Rest\\Tp.Restaurante.API\\Tp.Restaurante.Domain\\Tp.Restaurante.Domain.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Nico\\.nuget\\packages\\fluentvalidation\\10.1.0\\fluentvalidation.10.1.0.nupkg.sha512",
-    "C:\\Users\\Nico\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.1.0\\fluentvalidation.aspnetcore.10.1.0.nupkg.sha512",
-    "C:\\Users\\Nico\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.1.0\\fluentvalidation.dependencyinjectionextensions.10.1.0.nupkg.sha512",
-    "C:\\Users\\Nico\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
