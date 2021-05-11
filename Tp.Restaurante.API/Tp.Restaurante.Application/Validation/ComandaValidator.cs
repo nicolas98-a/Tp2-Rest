@@ -19,6 +19,7 @@ namespace Tp.Restaurante.Application.Validation
             this.genericsRepository = genericsRepository;
 
             RuleFor(e => e.FormaEntrega).Must(ExisteFormaEntrega).WithMessage("Forma de entrega no valida");
+            RuleForEach(e => e.Mercaderias).Must(ExisteMercaderia).WithMessage("Mercaderia no valida");
         }
 
         private bool ExisteFormaEntrega(int entrega)
@@ -26,6 +27,20 @@ namespace Tp.Restaurante.Application.Validation
 
             FormaEntrega formaEntrega  = genericsRepository.Exists<FormaEntrega>(entrega);
             if (formaEntrega == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private bool ExisteMercaderia(int mercaderiaId)
+        {
+
+            Mercaderia mercaderia  = genericsRepository.Exists<Mercaderia>(mercaderiaId);
+            if (mercaderia == null)
             {
                 return false;
             }

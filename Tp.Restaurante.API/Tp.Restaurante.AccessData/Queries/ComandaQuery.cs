@@ -58,31 +58,42 @@ namespace Tp.Restaurante.AccessData.Queries
                 .Where("ComandaId", "=", comandaId)
                 .FirstOrDefault<ComandaDto>();
 
-            var entrega = db.Query("FormaEntrega")
-                .Select("FormaEntregaId", "Descripcion")
-                .Where("FormaEntregaId", "=", comanda.FormaEntregaId)
-                .FirstOrDefault<ResponseGetComandaByIdFormaEntrega>();
-
-            var idsMercaderia = db.Query("ComandaMercaderias")
-                .Select("MercaderiaId", "ComandaId")
-                .Where("ComandaId", "=", comandaId)
-                .Get<int>().ToList();
-
-            List<ResponseGetMercaderiaById> listaMercaderias = new List<ResponseGetMercaderiaById>();
-            foreach (var item in idsMercaderia)
+            if (comanda != null)
             {
-                ResponseGetMercaderiaById mercaderia = _mercaderiaservice.GetById(item.ToString());
-                listaMercaderias.Add(mercaderia);
+                var entrega = db.Query("FormaEntrega")
+                    .Select("FormaEntregaId", "Descripcion")
+                    .Where("FormaEntregaId", "=", comanda.FormaEntregaId)
+                    .FirstOrDefault<ResponseGetComandaByIdFormaEntrega>();
+
+                var idsMercaderia = db.Query("ComandaMercaderias")
+                    .Select("MercaderiaId", "ComandaId")
+                    .Where("ComandaId", "=", comandaId)
+                    .Get<int>().ToList();
+
+                List<ResponseGetMercaderiaById> listaMercaderias = new List<ResponseGetMercaderiaById>();
+                foreach (var item in idsMercaderia)
+                {
+                    ResponseGetMercaderiaById mercaderia = _mercaderiaservice.GetById(item.ToString());
+                    listaMercaderias.Add(mercaderia);
+                }
+
+                return new ResponseGetComandaById
+                {
+                    ComandaId = comanda.ComandaId,
+                    PrecioTotal = comanda.PrecioTotal,
+                    Fecha = comanda.Fecha,
+                    FormaEntrega = entrega.Descripcion,
+                    Mercaderia = listaMercaderias
+                };
+            }
+            else 
+            {
+                return null;
             }
 
-            return new ResponseGetComandaById
-            {
-                ComandaId = comanda.ComandaId,
-                PrecioTotal = comanda.PrecioTotal,
-                Fecha = comanda.Fecha,
-                FormaEntrega = entrega.Descripcion,
-                Mercaderia = listaMercaderias
-            };
+
+
+
 
         }
     }

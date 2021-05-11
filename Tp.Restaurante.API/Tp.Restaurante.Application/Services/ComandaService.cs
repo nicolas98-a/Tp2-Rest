@@ -34,42 +34,30 @@ namespace Tp.Restaurante.Application.Services
             List<ResponseGetMercaderiaById> listaMercaderias = new List<ResponseGetMercaderiaById>();
             foreach (var item in comandaDto.Mercaderias)
             {
-                 ResponseGetMercaderiaById mercaderia = _mercaderiaService.GetById(item.ToString());
-                if(mercaderia == null)
-                {
-                    NullReferenceException exception = new NullReferenceException("Mercaderia con id " + item.ToString() + " no encontrada");
-                    throw exception;
-                    
-                }
-                else
-                {
-                    listaMercaderias.Add(mercaderia);
-                }
-
+                ResponseGetMercaderiaById mercaderia = _mercaderiaService.GetById(item.ToString());              
+                listaMercaderias.Add(mercaderia);              
             }
             int total = Calcularpreciototal(listaMercaderias);
 
             var entity = new Comanda
             {
-               ComandaId = new Guid(),
-               FormaEntregaId = comandaDto.FormaEntrega,
-               PrecioTotal = total,
-               Fecha = new DateTime()
+                ComandaId = new Guid(),
+                FormaEntregaId = comandaDto.FormaEntrega,
+                PrecioTotal = total,
+                Fecha = new DateTime()
 
             };
             _repository.Add(entity);
 
             foreach (ResponseGetMercaderiaById item in listaMercaderias)
             {
-                 RegistrarComandaMercaderia(item.MercaderiaId, entity.ComandaId);
+                RegistrarComandaMercaderia(item.MercaderiaId, entity.ComandaId);
             }
 
             return new GenericCreatedResponseDto { Entity = "Comanda", Id = entity.ComandaId.ToString() };
-
-
         }
 
-        public int Calcularpreciototal(List<ResponseGetMercaderiaById> mercaderias)
+        private int Calcularpreciototal(List<ResponseGetMercaderiaById> mercaderias)
         {
             int total = 0;
             List<ResponseGetMercaderiaById> aux = mercaderias;
@@ -100,7 +88,16 @@ namespace Tp.Restaurante.Application.Services
 
         public ResponseGetComandaById GetById(string comandaId)
         {
-            return _query.GetById(comandaId);
+            ResponseGetComandaById comandaById = _query.GetById(comandaId);
+            if (comandaById == null)
+            {
+                NullReferenceException exception = new NullReferenceException("Comanda con id " + comandaId + " no encontrada");
+                throw exception;
+            }
+            else
+            {
+                return comandaById;
+            }
         }
     }
 }

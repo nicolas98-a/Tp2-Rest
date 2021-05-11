@@ -60,7 +60,7 @@ namespace Tp.Restaurante.API.Controllers
                 }
                 else
                 {
-                    return NotFound("No se encontro la mercaderia con el id ingresado");
+                    return NotFound();
                 }
                              
             }
@@ -116,7 +116,8 @@ namespace Tp.Restaurante.API.Controllers
             }
             catch (Exception e)
             {
-                 return new JsonResult(BadRequest(e.Message)) { StatusCode = 400 };
+               return new JsonResult(BadRequest(e.Message)) { StatusCode = 400 };
+
             }
         }
 
