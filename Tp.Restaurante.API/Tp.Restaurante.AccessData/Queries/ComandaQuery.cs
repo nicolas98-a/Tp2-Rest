@@ -1,11 +1,8 @@
 ﻿using SqlKata.Compilers;
 using SqlKata.Execution;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tp.Restaurante.Application.Services;
 using Tp.Restaurante.Domain.DTOs;
 using Tp.Restaurante.Domain.Queries;
@@ -90,11 +87,6 @@ namespace Tp.Restaurante.AccessData.Queries
             {
                 return null;
             }
-
-
-
-
-
         }
     }
 }

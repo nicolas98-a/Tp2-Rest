@@ -1,7 +1,5 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Tp.Restaurante.Application.Validation;
 using Tp.Restaurante.Domain.Commands;
 using Tp.Restaurante.Domain.DTOs;
 using Tp.Restaurante.Domain.Entities;

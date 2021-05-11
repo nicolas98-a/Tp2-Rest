@@ -1,7 +1,5 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Tp.Restaurante.Application.Validation;
 using Tp.Restaurante.Domain.Commands;
 using Tp.Restaurante.Domain.DTOs;
 using Tp.Restaurante.Domain.Entities;
@@ -83,10 +81,8 @@ namespace Tp.Restaurante.Application.Services
                 mercaderia.Ingredientes = mercaderiaDto.Ingredientes;
                 mercaderia.Preparacion = mercaderiaDto.Preparacion;
                 mercaderia.Imagen = mercaderiaDto.Imagen;
-
-                
-
-                _repository.Update<Mercaderia>(mercaderia);
+             
+               _repository.Update<Mercaderia>(mercaderia);
 
                 return true;
 

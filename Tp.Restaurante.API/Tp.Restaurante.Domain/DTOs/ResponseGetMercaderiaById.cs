@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tp.Restaurante.Domain.DTOs
+﻿namespace Tp.Restaurante.Domain.DTOs
 {
     public class ResponseGetMercaderiaById
     {
@@ -20,11 +14,4 @@ namespace Tp.Restaurante.Domain.DTOs
         public string Imagen { get; set; }
         public int MercaderiaId { get; set; }
     }
-    /*
-    public class ResponseGetMercaderiaByIdTipo
-    {
-        public int TipoMercaderiaId { get; set; }
-
-        public string Descripcion { get; set; }
-    }   */
 }
