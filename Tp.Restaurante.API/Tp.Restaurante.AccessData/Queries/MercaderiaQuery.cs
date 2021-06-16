@@ -22,19 +22,39 @@ namespace Tp.Restaurante.AccessData.Queries
         public List<ResponseGetAllMercaderiaDto> GetAllMercaderia(string tipo)
         {
             var db = new QueryFactory(connection, sqlKataCompiler);
-            var query = db.Query("Mercaderias")
-                .Select("Mercaderias.Nombre",
-                "TipoMercaderia.Descripcion AS Tipo",
-                "Mercaderias.Precio",
-                "Mercaderias.Ingredientes",
-                "Mercaderias.Preparacion",
-                "Mercaderias.Imagen",
-                "Mercaderias.MercaderiaId")
-                .Join("TipoMercaderia", "TipoMercaderia.TipoMercaderiaId", "Mercaderias.TipoMercaderiaId")
-                .When(!string.IsNullOrWhiteSpace(tipo), q => q.WhereLike("TipoMercaderia.TipoMercaderiaId", $"%{tipo}%"));
+      
+            if(tipo != null)
+            {
+                var query = db.Query("Mercaderias")
+                    .Select("Mercaderias.Nombre",
+                     "TipoMercaderia.Descripcion AS Tipo",
+                     "Mercaderias.Precio",
+                     "Mercaderias.Ingredientes",
+                     "Mercaderias.Preparacion",
+                     "Mercaderias.Imagen",
+                     "Mercaderias.MercaderiaId")
+                     .Join("TipoMercaderia", "TipoMercaderia.TipoMercaderiaId", "Mercaderias.TipoMercaderiaId")
+                     .Where("TipoMercaderia.TipoMercaderiaId", "=", tipo);
 
-            var result = query.Get<ResponseGetAllMercaderiaDto>();
-            return result.ToList();
+                var result = query.Get<ResponseGetAllMercaderiaDto>();
+                return result.ToList();
+            }
+            else
+            {
+                var query = db.Query("Mercaderias")
+                    .Select("Mercaderias.Nombre",
+                    "TipoMercaderia.Descripcion AS Tipo",
+                    "Mercaderias.Precio",
+                    "Mercaderias.Ingredientes",
+                    "Mercaderias.Preparacion",
+                    "Mercaderias.Imagen",
+                    "Mercaderias.MercaderiaId")
+                    .Join("TipoMercaderia", "TipoMercaderia.TipoMercaderiaId", "Mercaderias.TipoMercaderiaId");
+     
+                var result = query.Get<ResponseGetAllMercaderiaDto>();
+                return result.ToList();
+            }
+
         }
 
         public ResponseGetMercaderiaById GetById(string mercaderiaId)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Tp.Restaurante.AccessData.Configurations;
 using Tp.Restaurante.Domain.Entities;
 
@@ -42,6 +43,18 @@ namespace Tp.Restaurante.AccessData
             new FormaEntregaConfiguration(modelBuilder.Entity<FormaEntrega>());
             new MercaderiaConfiguration(modelBuilder.Entity<Mercaderia>());
             new TipoMercaderiaConfiguration(modelBuilder.Entity<TipoMercaderia>());
+        }
+    }
+
+    public class RestauranteDbContextFactory : IDesignTimeDbContextFactory<RestauranteDbContext>
+    {
+        public RestauranteDbContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<RestauranteDbContext>();
+            optionsBuilder.UseSqlServer("Server=.;Database=Restaurante_API_Db;Trusted_Connection=True;Integrated Security=True;;MultipleActiveResultSets=true");
+
+            return new 
+                RestauranteDbContext(optionsBuilder.Options);
         }
     }
 }

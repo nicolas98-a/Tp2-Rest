@@ -130,6 +130,25 @@ namespace Tp.Restaurante.AccessData.Migrations
                     { 10, "Postres" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Mercaderias",
+                columns: new[] { "MercaderiaId", "Imagen", "Ingredientes", "Nombre", "Precio", "Preparacion", "TipoMercaderiaId" },
+                values: new object[,]
+                {
+                    { 8, "https://imagenes.montevideo.com.uy/imgnoticias/201704/_W576_H432/608221.jpg", "tomate, mayonesa, etc...", "Tomates rellenos", 150, "rellenar el tomate", 1 },
+                    { 1, "https://unareceta.com/wp-content/uploads/2014/07/pollo-al-horno-a-la-miel-.jpg", "pollo, condimentos,...", "Pollo al horno", 400, "al horno", 2 },
+                    { 3, "https://static.misionesonline.news/wp-content/uploads/2020/05/28163533/milaaa.jpg", "carne, pan rallado, huevo, papas, condimentos,...", "Milanesas con fritas", 200, "frito", 2 },
+                    { 6, "https://www.cucinare.tv/wp-content/uploads/2018/11/Pastel-de-papas.jpg", "carne picada, papas, condimentos,...", "Pastel de papas", 500, "al horno", 2 },
+                    { 9, "https://media-cdn.tripadvisor.com/media/photo-s/1a/13/cd/e8/mi-plato-de-ravioles.jpg", "harina, verduras, salsa de tomate, etc...", "Ravioles con salsa", 350, "preparar los ravioles, hacer la salsa", 3 },
+                    { 2, "https://www.recetas-argentinas.com/base/stock/Recipe/81-image/81-image_web.jpg", "carne, condimentos,...", "Carne asada", 600, "a la parrilla", 4 },
+                    { 5, "https://http2.mlstatic.com/D_NQ_NP_777487-MLA44257220736_122020-O.jpg", "harina, muzzarella, salsa de tomate, condimentos,...", "Pizza de muzzarella", 450, "al horno", 5 },
+                    { 10, "https://blog.kakaocdn.net/dn/EDJZG/btqy5S3BO90/m6OkKqvnN51sRkbiFG6PW0/img.jpg", "pan, lechuga, carne , etc...", "Sandwich completo", 350, "cortar el pan....", 6 },
+                    { 11, "https://www.superama.com.mx/views/micrositio/recetas/images/comidasaludable/ensaladamixta/Web_fotoreceta.jpg", "lechuga, tomate, etc...", "Ensalada mixta", 250, "hacer la ensalada....", 7 },
+                    { 4, "https://www.cocacolaespana.es/content/dam/one/es/es/body/sostenibilidad/nuestros-productos/historia-envases-coca-cola/tamanos-237.jpg", "agua, azucar, etc...", "Coca Cola", 100, "gaseosa", 8 },
+                    { 7, "https://economipedia.com/wp-content/uploads/Cerveza-artesanal-1.jpg", "malta", "Cerveza", 250, "liquido", 9 },
+                    { 12, "https://www.bacanal.com.ar/wp-content/uploads/2019/08/flan-casero-mixto.jpg", "huevos, leche, crema, dulce de leche, etc...", "Flan mixto", 100, "hacer el flan....", 10 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ComandaMercaderias_MercaderiaId",
                 table: "ComandaMercaderias",

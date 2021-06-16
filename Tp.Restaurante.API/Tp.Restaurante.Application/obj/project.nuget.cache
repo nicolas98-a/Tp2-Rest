@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "99Jt3+pRQJlRbWoM0kxWavRn4apGPRqi0e+/nzTduLUl4336cx2U4oXQqdCtJTiKPnYcd4BX4Z/JfI+5MTU7Vw==",
+  "dgSpecHash": "9gbNG15GHuPc7+TyU6OmlfEcIBhHstZIURtKpZqcVqC3nw+plK73iIWuzBBzSX3BY+FNECjMMcQxD4HaCgx5aw==",
   "success": true,
-  "projectFilePath": "G:\\Visual Studio\\Tp2-Rest\\Tp.Restaurante.API\\Tp.Restaurante.Application\\Tp.Restaurante.Application.csproj",
+  "projectFilePath": "G:\\Visual Studio\\Tp2-Rest-Acuña_Nicolas\\Tp.Restaurante.API\\Tp.Restaurante.Application\\Tp.Restaurante.Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Nico\\.nuget\\packages\\fluentvalidation\\10.1.0\\fluentvalidation.10.1.0.nupkg.sha512",
-    "C:\\Users\\Nico\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.1.0\\fluentvalidation.aspnetcore.10.1.0.nupkg.sha512",
-    "C:\\Users\\Nico\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.1.0\\fluentvalidation.dependencyinjectionextensions.10.1.0.nupkg.sha512",
+    "C:\\Users\\Nico\\.nuget\\packages\\fluentvalidation\\10.2.1\\fluentvalidation.10.2.1.nupkg.sha512",
+    "C:\\Users\\Nico\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.2.1\\fluentvalidation.aspnetcore.10.2.1.nupkg.sha512",
+    "C:\\Users\\Nico\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.2.1\\fluentvalidation.dependencyinjectionextensions.10.2.1.nupkg.sha512",
     "C:\\Users\\Nico\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
   ],
   "logs": []

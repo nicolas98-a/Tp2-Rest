@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2QBZlE4ZFt8YakJKgJ7eVbcaTmB/Zm7+AqDFCUUA8w6k1QHv3jqmCxxDgYG1s+JM9Lx53D3kIQO+wJszKDB0Sw==",
+  "dgSpecHash": "i8p45se0rEE1v9YVEgceqevaloMX/r/qGb5VeOoubGAxnkShSlZXZuSR9/mDARsp2/vvxSOpCPsV9pHI9lzUHw==",
   "success": true,
-  "projectFilePath": "G:\\Visual Studio\\Tp2-Rest\\Tp.Restaurante.API\\Tp.Restaurante.Domain\\Tp.Restaurante.Domain.csproj",
+  "projectFilePath": "G:\\Visual Studio\\Tp2-Rest-Acuña_Nicolas\\Tp.Restaurante.API\\Tp.Restaurante.Domain\\Tp.Restaurante.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
